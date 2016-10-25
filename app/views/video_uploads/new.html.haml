@@ -1,0 +1,18 @@
+.container
+  %h2 Upload video
+  - if current_user
+    = form_for @video_upload do |f|
+      = render 'shared/errors', object: @video_upload
+      .form-group
+        = f.label :file
+        = f.file_field :file, class: 'form-control', required: true
+      .form-group
+        = f.label :title
+        = f.text_field :title, class: 'form-control', required: true
+      .form-group
+        = f.label :description
+        = f.text_area :description, class: 'form-control', cols: 3
+      = f.submit 'Upload', class: 'btn btn-primary'
+  - else
+    %p
+      Please #{link_to 'sign in', '/auth/google_oauth2'}.

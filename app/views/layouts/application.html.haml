@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title YtVideosV3
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    .navbar.navbar
+      .container
+        .navbar-header
+          = link_to 'YT Uploader', root_path, class: 'navbar-brand'
+        %ul.nav.navbar-nav
+          %li= link_to 'Videos', root_path
+          %li= link_to 'Add Video', new_video_path
+          - if current_user
+            %li= link_to 'Upload Video', new_video_upload_path
+        %ul.nav.navbar-nav.pull-right
+          - if current_user
+            %li
+              %span= current_user.name
+            %li= link_to 'Log Out', logout_path, method: :delete
+          - else
+            %li= link_to 'Log In', '/auth/google_oauth2'
+
+    .container
+      - flash.each do |key, value|
+        %div{:class => "alert alert-#{key}"}
+          = value
+    = yield

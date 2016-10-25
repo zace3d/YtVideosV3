@@ -1,0 +1,9 @@
+.container
+  %h2 New video
+  = form_for @video do |f|
+    = render 'shared/errors', object: @video
+    .form-group
+      = f.label :link
+      = f.text_field :link, class: 'form-control', required: true
+      %span.help-block A link to the video on YouTube.
+    = f.submit class: 'btn btn-primary'

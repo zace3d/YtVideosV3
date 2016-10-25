@@ -1,0 +1,8 @@
+- if object.errors.any?
+  .panel.panel-danger
+    .panel-heading
+      %h3.panel-title The following errors were found while submitting the form:
+    .panel-body
+      %ul
+        - object.errors.full_messages.each do |msg|
+          %li= msg

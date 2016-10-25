@@ -1,0 +1,29 @@
+.jumbotron
+  .container
+    %h2 Share your videos with the world!
+    %p Click the button below to share your video from YouTube.
+    %p
+      = link_to 'Add video now!', new_video_path, class: 'btn btn-primary'
+
+- if @videos.any?
+  .container
+    %h1 Latest videos
+    #player-wrapper
+    - @videos.in_groups_of(3) do |group|
+      .row
+        - group.each do |video|
+          - if video
+            .col-md-4
+              .yt_video.thumbnail
+                = link_to image_tag("https://img.youtube.com/vi/#{video.uid}/mqdefault.jpg", alt: video.title, |
+                            class: 'img-rounded'),                                                             |
+                  "https://www.youtube.com/watch?v=#{video.uid}", target: '_blank'                             |
+                .caption
+                  %h5= video.title
+                  %p
+                    Published at #{video.published_at.strftime('%-d %B %Y %H:%M:%S')}
+                  %p
+                    %span.glyphicon.glyphicon.glyphicon-thumbs-up
+                    = video.likes
+                    %span.glyphicon.glyphicon.glyphicon-thumbs-down
+                    = video.dislikes
